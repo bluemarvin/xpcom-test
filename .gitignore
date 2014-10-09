@@ -1,0 +1,11 @@
+.config
+testapp
+external
+player
+glplayer
+stubplayer
+build*
+.DS_Store
+*.swp
+*.o
+*.yuv
