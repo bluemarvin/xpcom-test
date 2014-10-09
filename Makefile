@@ -16,7 +16,6 @@ $(GECKO_OBJ)/xpcom/string/libxpcom_string.a.desc \
 $(GECKO_OBJ)/xpcom/ds/libxpcom_ds.a.desc \
 $(GECKO_OBJ)/xpcom/io/libxpcom_io.a.desc \
 $(GECKO_OBJ)/xpcom/components/libxpcom_components.a.desc \
-$(GECKO_OBJ)/xpcom/glue/libxpcomglue_s.a.desc \
 $(GECKO_OBJ)/xpcom/threads/libxpcom_threads.a.desc
 
 # ./glue/nomozalloc/libxpcomglue_s_nomozalloc.a.desc
