@@ -41,9 +41,9 @@ $(BUILD_DIR)/main.o
 test: $(OBJS) $(LIB_ROLLUP) iTest.h
 	$(CXX) $(OBJS) $(LIB_ROLLUP) $(LFLAGS) -o $@
 
-$(BUILD_DIR)/%.o: %.cpp
+$(BUILD_DIR)/%.o: %.cpp iTest.h
 	@mkdir -p $(BUILD_DIR)
-	$(CXX) $(CFLAGS) $(SDL_CFLAGS) $(INCLUDE) $^ -c -o $@
+	$(CXX) $(CFLAGS) $(SDL_CFLAGS) $(INCLUDE) $< -c -o $@
 
 %.h: %.idl
 	PYTHONPATH=$(GECKO_OBJ)/dist/sdk/bin/ python $(GECKO_OBJ)/dist/sdk/bin/header.py -I$(GECKO_OBJ)/dist/idl $^ -o $@
@@ -56,5 +56,5 @@ clean:
 	rm -f $(LIB_ROLLUP) $(BUILD_DIR)/*.o
 
 clobber: clean
-	rm -f test
+	rm -f test iTest.h
 	rm -rf $(BUILD_DIR)
