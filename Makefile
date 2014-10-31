@@ -24,13 +24,12 @@ $(GECKO_OBJ)/xpcom/threads/libxpcom_threads.a.desc
 # ./reflect/xptcall/libxpcom_reflect_xptcall.a.desc
 # ./reflect/xptcall/md/unix/libxpcom_reflect_xptcall_md_unix.a.desc
 # ./reflect/xptinfo/libxpcom_reflect_xptinfo.a.desc
+#$(GECKO_OBJ)/ipc/chromium/libipc_chromium.a.desc \
+#$(GECKO_OBJ)/ipc/glue/libipc_glue.a.desc
+#$(GECKO_OBJ)/mfbt/libmfbt.a.desc \
 
 LIBS = \
-$(GECKO_OBJ)/mfbt/libmfbt.a.desc \
-$(GECKO_OBJ)/xpcom/libxpcomrt/libxpcomrt.a.desc \
-$(GECKO_OBJ)/ipc/chromium/libipc_chromium.a.desc \
-$(XPCOM_LIBS) \
-$(GECKO_OBJ)/ipc/glue/libipc_glue.a.desc
+$(GECKO_OBJ)/xpcom/libxpcomrt/libxpcomrt.a.desc
 
 LIB_ROLLUP = $(BUILD_DIR)/librollup.a
 
@@ -39,12 +38,15 @@ all: test
 OBJS = \
 $(BUILD_DIR)/main.o
 
-test: $(OBJS) $(LIB_ROLLUP)
+test: $(OBJS) $(LIB_ROLLUP) iTest.h
 	$(CXX) $(OBJS) $(LIB_ROLLUP) $(LFLAGS) -o $@
 
 $(BUILD_DIR)/%.o: %.cpp
 	@mkdir -p $(BUILD_DIR)
 	$(CXX) $(CFLAGS) $(SDL_CFLAGS) $(INCLUDE) $^ -c -o $@
+
+%.h: %.idl
+	PYTHONPATH=$(GECKO_OBJ)/dist/sdk/bin/ python $(GECKO_OBJ)/dist/sdk/bin/header.py -I$(GECKO_OBJ)/dist/idl $^ -o $@
 
 $(LIB_ROLLUP): $(LIBS)
 	@mkdir -p $(BUILD_DIR)
