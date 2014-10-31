@@ -52,6 +52,7 @@ main(int argc, char* argv[])
 
   nsRefPtr<nsISupports> ptr = new Test;
   nsCOMPtr<iTest> iptr = do_QueryObject(ptr);
+  iptr->Init();
 
 //  NS_ShutdownXPCOMRT();
   return 0;
