@@ -28,6 +28,8 @@ $(GECKO_OBJ)/xpcom/threads/libxpcom_threads.a.desc
 #$(GECKO_OBJ)/ipc/glue/libipc_glue.a.desc
 #$(GECKO_OBJ)/mfbt/libmfbt.a.desc \
 
+CFLAGS += -DMOZILLA_XPCOMRT_API
+
 LIBS = \
 $(GECKO_OBJ)/xpcom/libxpcomrt/libxpcomrt.a.desc
 
