@@ -26,12 +26,12 @@ $(GECKO_OBJ)/xpcom/threads/libxpcom_threads.a.desc
 # ./reflect/xptinfo/libxpcom_reflect_xptinfo.a.desc
 #$(GECKO_OBJ)/ipc/chromium/libipc_chromium.a.desc \
 #$(GECKO_OBJ)/ipc/glue/libipc_glue.a.desc
-#$(GECKO_OBJ)/mfbt/libmfbt.a.desc \
 
 CFLAGS += -DMOZILLA_XPCOMRT_API
 
 LIBS = \
-$(GECKO_OBJ)/xpcom/libxpcomrt/libxpcomrt.a.desc
+$(GECKO_OBJ)/xpcom/libxpcomrt/libxpcomrt.a.desc \
+$(GECKO_OBJ)/mfbt/libmfbt.a.desc
 
 LIB_ROLLUP = $(BUILD_DIR)/librollup.a
 

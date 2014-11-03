@@ -1,9 +1,6 @@
 .config
-testapp
-external
-player
-glplayer
-stubplayer
+test
+iTest.h
 build*
 .DS_Store
 *.swp
