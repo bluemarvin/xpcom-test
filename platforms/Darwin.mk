@@ -1,6 +1,6 @@
 RENDERNAME=renderGL
 
-CFLAGS = \
+CFLAGS += \
 -fvisibility=hidden \
 -DOS_POSIX=1 \
 -DOS_MACOSX=1 \
@@ -38,7 +38,7 @@ CFLAGS = \
 -g \
 -fomit-frame-pointer
 
-LFLAGS = \
+LFLAGS += \
 -L$(GECKO_OBJ)/dist/sdk/lib \
 -L$(GECKO_OBJ)/dist/lib \
 -pipe \
@@ -58,7 +58,8 @@ LFLAGS = \
 -framework SystemConfiguration \
 -lmozalloc
 
-LFLAGS+=-lm \
+LFLAGS += \
+-lm \
 -liconv \
 -framework OpenGL \
 -framework ForceFeedback \

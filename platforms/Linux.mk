@@ -1,6 +1,4 @@
-RENDERNAME=renderSDL2
-
-CFLAGS = \
+CFLAGS += \
 -DDEBUG -D_DEBUG -DTRACING \
 -DOS_POSIX=1 \
 -DOS_LINUX=1 \
@@ -40,7 +38,7 @@ CFLAGS = \
 -freorder-blocks \
 -fomit-frame-pointer
 
-LFLAGS = \
+LFLAGS += \
 -Wall \
 -Wpointer-arith \
 -Woverloaded-virtual \
@@ -109,7 +107,3 @@ LFLAGS = \
 -lmozalloc \
 -ldl
 
-#$(GECKO_OBJ)/memory/mozalloc/Unified_cpp_memory_mozalloc0.o \
-
-CFLAGS+=-I$(SDL_INCLUDE_PATH) -D_THREAD_SAFE
-LFLAGS+=-L$(SDL_LIB_PATH) -lSDL2 -lGL

@@ -5,6 +5,7 @@
 #include "nsRefPtr.h"
 #include "nsCOMPtr.h"
 #include "nsAutoPtr.h"
+#include "mozilla/Mutex.h"
 #include "iTest.h"
 
 class Test : public iTest
@@ -50,6 +51,7 @@ main(int argc, char* argv[])
 {
 //  NS_InitXPCOMRT();
 
+  mozilla::Mutex mux("");
   nsRefPtr<nsISupports> ptr = new Test;
   nsCOMPtr<iTest> iptr = do_QueryObject(ptr);
   iptr->Init();
