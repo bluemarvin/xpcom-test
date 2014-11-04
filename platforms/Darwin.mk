@@ -11,6 +11,8 @@ CFLAGS += \
 -DMOZILLA_CLIENT \
 -DNDEBUG \
 -DTRIMMED \
+-DDEBUG \
+-DTRACING \
 -fPIC \
 -Qunused-arguments \
 -MD \
