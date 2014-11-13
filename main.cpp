@@ -6,12 +6,15 @@
 #include "nsCOMPtr.h"
 #include "nsComponentManagerUtils.h"
 #include "nsAutoPtr.h"
+#include "nsNetCID.h"
 #include "mozilla/Mutex.h"
 #include "iTest.h"
 #include "nsIRunnable.h"
 #include "nsIThread.h"
 #include "nsITimer.h"
 #include "nsThreadUtils.h"
+#include "nsISocketTransportService.h"
+#include "nsServiceManagerUtils.h"
 
 #include <stdio.h>
 
@@ -113,6 +116,8 @@ main(int argc, char* argv[])
   iptr->Init();
 
   nsresult rv;
+
+  nsCOMPtr<nsISocketTransportService> stservice = do_GetService(NS_SOCKETTRANSPORTSERVICE_CONTRACTID, &rv);
 
   nsCOMPtr<nsIThread> thread;
   rv = NS_NewThread(getter_AddRefs(thread));
