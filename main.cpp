@@ -6,12 +6,19 @@
 #include "nsCOMPtr.h"
 #include "nsComponentManagerUtils.h"
 #include "nsAutoPtr.h"
+#include "nsNetCID.h"
 #include "mozilla/Mutex.h"
 #include "iTest.h"
 #include "nsIRunnable.h"
 #include "nsIThread.h"
 #include "nsITimer.h"
 #include "nsThreadUtils.h"
+#include "nsICancelable.h"
+#include "nsIDNSListener.h"
+#include "nsIDNSRecord.h"
+#include "nsIDNSService.h"
+#include "nsISocketTransportService.h"
+#include "nsServiceManagerUtils.h"
 
 #include <stdio.h>
 
@@ -99,9 +106,24 @@ NS_IMETHODIMP Test::Init()
   return NS_OK;
 }
 
-class test : nsISupports {
-
+class Lookup : public nsIDNSListener {
+public:
+  NS_DECL_THREADSAFE_ISUPPORTS
+  NS_DECL_NSIDNSLISTENER
+protected:
+  virtual ~Lookup() {}
 };
+
+NS_IMPL_ISUPPORTS(Lookup, nsIDNSListener)
+
+NS_IMETHODIMP
+Lookup::OnLookupComplete(nsICancelable *aRequest, nsIDNSRecord *aRecord, nsresult aStatus)
+{
+  nsCString str;
+  aRecord->GetNextAddrAsString(str);
+  fprintf(stderr, " **** Got address: %s\n", str.get());
+  return NS_OK;
+}
 
 int
 main(int argc, char* argv[])
@@ -113,6 +135,13 @@ main(int argc, char* argv[])
   iptr->Init();
 
   nsresult rv;
+
+  nsCOMPtr<nsISocketTransportService> stservice = do_GetService(NS_SOCKETTRANSPORTSERVICE_CONTRACTID, &rv);
+  nsCOMPtr<nsIDNSService> dns = do_GetService(NS_DNSSERVICE_CONTRACTID, &rv);
+  nsCOMPtr<nsIDNSListener> listener = new Lookup();
+  nsCString host("mozilla.org");
+  nsCOMPtr<nsICancelable> req;
+  dns->AsyncResolve(host, 0, listener, nullptr, getter_AddRefs(req));
 
   nsCOMPtr<nsIThread> thread;
   rv = NS_NewThread(getter_AddRefs(thread));
