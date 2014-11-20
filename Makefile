@@ -9,6 +9,8 @@ include platforms/$(PLATFORM).mk
 
 BUILD_DIR=./build-$(PLATFORM)
 
+CFLAGS += -DMOZILLA_XPCOMRT_API
+
 LIBS = \
 $(GECKO_OBJ)/netwerk/mini/libneckomini.a.desc \
 $(GECKO_OBJ)/xpcom/libxpcomrt/libxpcomrt.a.desc \
